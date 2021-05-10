@@ -22,7 +22,4 @@ cp -f net.martinsoft.wifiautoreconnect.plist_template net.martinsoft.wifiautorec
 sed -i.bak "s|SCRIPT_LOCATION_VAR|$SCRIPT_LOCATION|g" net.martinsoft.wifiautoreconnect.plist
 cp -fv net.martinsoft.wifiautoreconnect.plist ~/Library/LaunchAgents/
 
-#
-# 
-# 
-# launchctl load ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
+launchctl load ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
