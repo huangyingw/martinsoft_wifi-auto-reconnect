@@ -5,7 +5,7 @@
    <key>Label</key>
    <string>net.martinsoft.wifiautoreconnect</string>
    <key>ProgramArguments</key>
-   <array><string>/Users/YOUR_USER/Library/Scripts/wifiautoreconnect</string></array>
+   <array><string>SCRIPT_LOCATION_VAR</string></array>
    <key>RunAtLoad</key>
    <true/>
 </dict>
