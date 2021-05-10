@@ -25,10 +25,10 @@ index 8101aba..0000000
 -
 diff --git a/install.sh b/install.sh
 new file mode 100755
-index 0000000..e146bee
+index 0000000..d60d39d
 --- /dev/null
 +++ ./install.sh
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +#!/bin/zsh
 +SCRIPT=$(realpath "$0")
 +SCRIPTPATH=$(dirname "$SCRIPT")
@@ -53,6 +53,7 @@ index 0000000..e146bee
 +sed -i.bak "s|SCRIPT_LOCATION_VAR|$SCRIPT_LOCATION|g" net.martinsoft.wifiautoreconnect.plist
 +cp -fv net.martinsoft.wifiautoreconnect.plist ~/Library/LaunchAgents/
 +
++launchctl unload ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 +launchctl load ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
 diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist_template
 similarity index 79%
