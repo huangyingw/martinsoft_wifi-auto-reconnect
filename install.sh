@@ -15,7 +15,7 @@ source "$HOSTRC"
 
 cp -f wifiautoreconnect_template wifiautoreconnect
 sed -i.bak "s|ROUTER_IP_ADDRESS_VAR|$ROUTER_IP_ADDRESS|g" wifiautoreconnect
-cp -fv wifiautoreconnect ~/Library/Scripts/
+cp -f wifiautoreconnect ~/Library/Scripts/
 
 SCRIPT_LOCATION=$(realpath ~/Library/Scripts/wifiautoreconnect)
 cp -f net.martinsoft.wifiautoreconnect.plist_template net.martinsoft.wifiautoreconnect.plist
