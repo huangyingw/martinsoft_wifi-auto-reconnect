@@ -67,22 +67,20 @@ index 5c170e7..08eab27 100644
  </dict>
 diff --git a/uninstall.sh b/uninstall.sh
 new file mode 100755
-index 0000000..c009eff
+index 0000000..d6656cc
 --- /dev/null
 +++ ./uninstall.sh
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,10 @@
 +#!/bin/zsh
 +SCRIPT=$(realpath "$0")
 +SCRIPTPATH=$(dirname "$SCRIPT")
 +cd "$SCRIPTPATH"
 +
-+PLIST="/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist"
-+sudo launchctl unload "$PLIST"
-+sudo rm "$PLIST"
++sudo launchctl unload ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 +
-+PLIST="~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist"
-+sudo launchctl unload "$PLIST"
-+sudo rm "$PLIST"
++sudo rm /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
++sudo rm ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
 diff --git a/wifiautoreconnect b/wifiautoreconnect
 deleted file mode 100755
 index 97cec41..0000000
