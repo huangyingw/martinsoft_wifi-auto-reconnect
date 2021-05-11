@@ -3,10 +3,8 @@ SCRIPT=$(realpath "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 cd "$SCRIPTPATH"
 
-PLIST="/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist"
-sudo launchctl unload "$PLIST"
-sudo rm "$PLIST"
+sudo launchctl unload ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
+sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 
-PLIST="~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist"
-sudo launchctl unload "$PLIST"
-sudo rm "$PLIST"
+sudo rm /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
+sudo rm ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
