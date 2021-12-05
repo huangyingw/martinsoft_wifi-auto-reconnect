@@ -128,24 +128,13 @@ index 97cec41..0000000
 -done
 diff --git a/wifiautoreconnect.sh b/wifiautoreconnect.sh
 new file mode 100755
-index 0000000..bd23c7a
+index 0000000..1413a13
 --- /dev/null
 +++ ./wifiautoreconnect.sh
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,39 @@
 +#!/bin/bash
 +
-+ROUTER_IP_ADDRESS="ROUTER_IP_ADDRESS_VAR"
 +WIFI_DEVICE=`networksetup -listallhardwareports | grep --after-context=1 Wi-Fi | sed -n -e 's/^Device: //p'`
-+
-+
-+function isNetworkReachable {
-+    ping -q -o -t 5 -c 5 $ROUTER_IP_ADDRESS > /dev/null 2>&1
-+    if [ $? -eq 0 ]; then
-+        echo 1
-+    else
-+        echo 0
-+    fi
-+}
 +
 +function turnWifiOff {
 +    networksetup -setairportpower $WIFI_DEVICE off
@@ -173,11 +162,12 @@ index 0000000..bd23c7a
 +}
 +
 +while [ 1 ]; do
-+    if [ $(isNetworkReachable) -eq 0 ]; then
++    if [ $(networksetup -getinfo Wi-Fi | grep -c 'IP address:') = '1' ]
++    then 
++        echo "Network is reachable"
++    else
 +        echo "Network is no longer reachable!"
 +        networkReboot
-+    else
-+        echo "Network is reachable"
 +    fi
 +    sleep 10
 +done
