@@ -19,6 +19,3 @@
     merge = refs/heads/master
 [gdif]
     ignore = *.gdio.diff
-[deploy]
-	host = localhost
-	path = ~/myproject/git/tools/martinsoft/wifi-auto-reconnect
