@@ -1,17 +1,6 @@
 #!/bin/bash
 
-ROUTER_IP_ADDRESS="ROUTER_IP_ADDRESS_VAR"
 WIFI_DEVICE=`networksetup -listallhardwareports | grep --after-context=1 Wi-Fi | sed -n -e 's/^Device: //p'`
-
-
-function isNetworkReachable {
-    ping -q -o -t 5 -c 5 $ROUTER_IP_ADDRESS > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo 1
-    else
-        echo 0
-    fi
-}
 
 function turnWifiOff {
     networksetup -setairportpower $WIFI_DEVICE off
@@ -39,11 +28,12 @@ function networkReboot {
 }
 
 while [ 1 ]; do
-    if [ $(isNetworkReachable) -eq 0 ]; then
+    if [ $(networksetup -getinfo Wi-Fi | grep -c 'IP address:') = '1' ]
+    then 
+        echo "Network is reachable"
+    else
         echo "Network is no longer reachable!"
         networkReboot
-    else
-        echo "Network is reachable"
     fi
     sleep 10
 done
