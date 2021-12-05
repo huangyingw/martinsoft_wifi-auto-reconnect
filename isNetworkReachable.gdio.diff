@@ -18,10 +18,10 @@ index 8101aba..0000000
 -
 diff --git a/install.sh b/install.sh
 new file mode 100755
-index 0000000..ff09ccb
+index 0000000..ee5620b
 --- /dev/null
 +++ ./install.sh
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,11 @@
 +#!/bin/zsh
 +SCRIPT=$(realpath "$0")
 +SCRIPTPATH=$(dirname "$SCRIPT")
@@ -29,48 +29,38 @@ index 0000000..ff09ccb
 +
 +sudo mkdir -p /Library/Scripts/
 +sudo cp -fv wifiautoreconnect.sh /Library/Scripts/
-+
-+SCRIPT_LOCATION=$(realpath /Library/Scripts/wifiautoreconnect.sh)
-+cp -f net.martinsoft.wifiautoreconnect.plist_template net.martinsoft.wifiautoreconnect.plist
-+sed -i.bak "s|SCRIPT_LOCATION_VAR|$SCRIPT_LOCATION|g" net.martinsoft.wifiautoreconnect.plist
 +sudo cp -fv net.martinsoft.wifiautoreconnect.plist /Library/LaunchAgents/
 +
 +launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 +launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
-diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist_template
-similarity index 79%
-rename from net.martinsoft.wifiautoreconnect.plist
-rename to net.martinsoft.wifiautoreconnect.plist_template
-index 5c170e7..08eab27 100644
+diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist
+index 5c170e7..14dcd65 100644
 --- ./net.martinsoft.wifiautoreconnect.plist
-+++ ./net.martinsoft.wifiautoreconnect.plist_template
++++ ./net.martinsoft.wifiautoreconnect.plist
 @@ -5,7 +5,7 @@
     <key>Label</key>
     <string>net.martinsoft.wifiautoreconnect</string>
     <key>ProgramArguments</key>
 -   <array><string>/Users/YOUR_USER/Library/Scripts/wifiautoreconnect</string></array>
-+   <array><string>SCRIPT_LOCATION_VAR</string></array>
++   <array><string>/Library/Scripts/wifiautoreconnect.sh</string></array>
     <key>RunAtLoad</key>
     <true/>
  </dict>
 diff --git a/uninstall.sh b/uninstall.sh
 new file mode 100755
-index 0000000..a0ec2e2
+index 0000000..801f5c4
 --- /dev/null
 +++ ./uninstall.sh
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,9 @@
 +#!/bin/zsh
 +SCRIPT=$(realpath "$0")
 +SCRIPTPATH=$(dirname "$SCRIPT")
 +cd "$SCRIPTPATH"
 +
-+sudo launchctl unload ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
-+sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 +
 +sudo rm /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
-+sudo rm ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
-+sudo rm /Library/Scripts/wifiautoreconnect
-+sudo rm ~/Library/Scripts/wifiautoreconnect
++sudo rm /Library/Scripts/wifiautoreconnect.sh
 diff --git a/wifiautoreconnect b/wifiautoreconnect
 deleted file mode 100755
 index 97cec41..0000000
