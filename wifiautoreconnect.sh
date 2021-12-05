@@ -10,15 +10,6 @@ function turnWifiOn {
     networksetup -setairportpower $WIFI_DEVICE on
 }
 
-function isWifiOn {
-    device_power=`networksetup -getairportpower $device_name`
-    if [[ $device_power == *": Off" ]]; then
-        echo 0
-    else
-        echo 1
-    fi
-}
-
 function networkReboot {
     echo "Turning wifi off"
     turnWifiOff
