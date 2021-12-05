@@ -8,7 +8,7 @@
     remote = origin
 [gsync]
     remote = martinsoft
-    target = martinsoft/uninstall
+    target = martinsoft/master
 [merge]
     allow = true
 [branch "dev"]
