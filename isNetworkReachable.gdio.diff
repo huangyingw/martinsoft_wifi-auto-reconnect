@@ -128,10 +128,10 @@ index 97cec41..0000000
 -done
 diff --git a/wifiautoreconnect.sh b/wifiautoreconnect.sh
 new file mode 100755
-index 0000000..1413a13
+index 0000000..57e9529
 --- /dev/null
 +++ ./wifiautoreconnect.sh
-@@ -0,0 +1,39 @@
+@@ -0,0 +1,30 @@
 +#!/bin/bash
 +
 +WIFI_DEVICE=`networksetup -listallhardwareports | grep --after-context=1 Wi-Fi | sed -n -e 's/^Device: //p'`
@@ -142,15 +142,6 @@ index 0000000..1413a13
 +
 +function turnWifiOn {
 +    networksetup -setairportpower $WIFI_DEVICE on
-+}
-+
-+function isWifiOn {
-+    device_power=`networksetup -getairportpower $device_name`
-+    if [[ $device_power == *": Off" ]]; then
-+        echo 0
-+    else
-+        echo 1
-+    fi
 +}
 +
 +function networkReboot {
