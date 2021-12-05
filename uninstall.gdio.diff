@@ -1,0 +1,195 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..5246977
+--- /dev/null
++++ ./.gitignore
+@@ -0,0 +1,2 @@
++net.martinsoft.wifiautoreconnect.plist
++wifiautoreconnect
+diff --git a/install b/install
+deleted file mode 100755
+index 8101aba..0000000
+--- ./install
++++ /dev/null
+@@ -1,4 +0,0 @@
+-cp net.martinsoft.wifiautoreconnect.plist ~/Library/LaunchAgents/
+-cp wifiautoreconnect ~/Library/Scripts/
+-launchctl load ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
+-
+diff --git a/install.sh b/install.sh
+new file mode 100755
+index 0000000..e148b20
+--- /dev/null
++++ ./install.sh
+@@ -0,0 +1,27 @@
++#!/bin/zsh
++SCRIPT=$(realpath "$0")
++SCRIPTPATH=$(dirname "$SCRIPT")
++cd "$SCRIPTPATH"
++
++HOSTRC="$(hostname).rc"
++
++if [ ! -f "$HOSTRC" ]
++then
++    echo -e "${red}no host rc for this host... ${NC}"
++    exit 1
++fi
++
++source "$HOSTRC"
++
++cp -f wifiautoreconnect_template wifiautoreconnect
++sed -i.bak "s|ROUTER_IP_ADDRESS_VAR|$ROUTER_IP_ADDRESS|g" wifiautoreconnect
++sudo mkdir -p /Library/Scripts/
++sudo cp -f wifiautoreconnect /Library/Scripts/
++
++SCRIPT_LOCATION=$(realpath /Library/Scripts/wifiautoreconnect)
++cp -f net.martinsoft.wifiautoreconnect.plist_template net.martinsoft.wifiautoreconnect.plist
++sed -i.bak "s|SCRIPT_LOCATION_VAR|$SCRIPT_LOCATION|g" net.martinsoft.wifiautoreconnect.plist
++sudo cp -fv net.martinsoft.wifiautoreconnect.plist /Library/LaunchAgents/
++
++launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
+diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist_template
+similarity index 79%
+rename from net.martinsoft.wifiautoreconnect.plist
+rename to net.martinsoft.wifiautoreconnect.plist_template
+index 5c170e7..08eab27 100644
+--- ./net.martinsoft.wifiautoreconnect.plist
++++ ./net.martinsoft.wifiautoreconnect.plist_template
+@@ -5,7 +5,7 @@
+    <key>Label</key>
+    <string>net.martinsoft.wifiautoreconnect</string>
+    <key>ProgramArguments</key>
+-   <array><string>/Users/YOUR_USER/Library/Scripts/wifiautoreconnect</string></array>
++   <array><string>SCRIPT_LOCATION_VAR</string></array>
+    <key>RunAtLoad</key>
+    <true/>
+ </dict>
+diff --git a/uninstall.sh b/uninstall.sh
+new file mode 100755
+index 0000000..a0ec2e2
+--- /dev/null
++++ ./uninstall.sh
+@@ -0,0 +1,12 @@
++#!/bin/zsh
++SCRIPT=$(realpath "$0")
++SCRIPTPATH=$(dirname "$SCRIPT")
++cd "$SCRIPTPATH"
++
++sudo launchctl unload ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++
++sudo rm /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
++sudo rm ~/Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
++sudo rm /Library/Scripts/wifiautoreconnect
++sudo rm ~/Library/Scripts/wifiautoreconnect
+diff --git a/wifiautoreconnect b/wifiautoreconnect
+deleted file mode 100755
+index 97cec41..0000000
+--- ./wifiautoreconnect
++++ /dev/null
+@@ -1,49 +0,0 @@
+-#!/bin/bash
+-
+-ROUTER_IP_ADDRESS="10.0.1.1"
+-WIFI_DEVICE=`networksetup -listallhardwareports | grep --after-context=1 Wi-Fi | sed -n -e 's/^Device: //p'`
+-
+-
+-function isNetworkReachable {
+-  ping -q -o -t 5 -c 5 $ROUTER_IP_ADDRESS > /dev/null 2>&1
+-  if [ $? -eq 0 ]; then
+-    echo 1
+-  else
+-    echo 0
+-  fi
+-}
+-
+-function turnWifiOff {
+-  networksetup -setairportpower $WIFI_DEVICE off
+-}
+-
+-function turnWifiOn {
+-  networksetup -setairportpower $WIFI_DEVICE on
+-}
+-
+-function isWifiOn {
+-  device_power=`networksetup -getairportpower $device_name`
+-  if [[ $device_power == *": Off" ]]; then
+-    echo 0
+-  else
+-    echo 1
+-  fi
+-}
+-
+-function networkReboot {
+-  echo "Turning wifi off"
+-  turnWifiOff
+-  sleep 5
+-  echo "Turning wifi on"
+-  turnWifiOn
+-}
+-
+-while [ 1 ]; do
+-  if [ $(isNetworkReachable) -eq 0 ]; then
+-    echo "Network is no longer reachable!"
+-    networkReboot
+-  else
+-    echo "Network is reachable"
+-  fi
+-  sleep 10
+-done
+diff --git a/wifiautoreconnect_template b/wifiautoreconnect_template
+new file mode 100755
+index 0000000..bd23c7a
+--- /dev/null
++++ ./wifiautoreconnect_template
+@@ -0,0 +1,49 @@
++#!/bin/bash
++
++ROUTER_IP_ADDRESS="ROUTER_IP_ADDRESS_VAR"
++WIFI_DEVICE=`networksetup -listallhardwareports | grep --after-context=1 Wi-Fi | sed -n -e 's/^Device: //p'`
++
++
++function isNetworkReachable {
++    ping -q -o -t 5 -c 5 $ROUTER_IP_ADDRESS > /dev/null 2>&1
++    if [ $? -eq 0 ]; then
++        echo 1
++    else
++        echo 0
++    fi
++}
++
++function turnWifiOff {
++    networksetup -setairportpower $WIFI_DEVICE off
++}
++
++function turnWifiOn {
++    networksetup -setairportpower $WIFI_DEVICE on
++}
++
++function isWifiOn {
++    device_power=`networksetup -getairportpower $device_name`
++    if [[ $device_power == *": Off" ]]; then
++        echo 0
++    else
++        echo 1
++    fi
++}
++
++function networkReboot {
++    echo "Turning wifi off"
++    turnWifiOff
++    sleep 5
++    echo "Turning wifi on"
++    turnWifiOn
++}
++
++while [ 1 ]; do
++    if [ $(isNetworkReachable) -eq 0 ]; then
++        echo "Network is no longer reachable!"
++        networkReboot
++    else
++        echo "Network is reachable"
++    fi
++    sleep 10
++done
