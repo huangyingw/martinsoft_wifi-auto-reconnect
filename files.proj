@@ -4,6 +4,7 @@
 "./.gitignore"
 "./LICENSE"
 "./README.md"
+"./imac.rc"
 "./includefile.conf"
 "./install.sh"
 "./net.martinsoft.wifiautoreconnect.plist"
@@ -15,4 +16,4 @@
 "./uninstall.sh"
 "./wifiautoreconnect"
 "./wifiautoreconnect_template"
-"uninstall.gdio.diff"
+"dev.gdio.diff"
