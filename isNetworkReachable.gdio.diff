@@ -18,7 +18,7 @@ index 8101aba..0000000
 -
 diff --git a/install.sh b/install.sh
 new file mode 100755
-index 0000000..ee5620b
+index 0000000..5df7a16
 --- /dev/null
 +++ ./install.sh
 @@ -0,0 +1,11 @@
@@ -31,8 +31,8 @@ index 0000000..ee5620b
 +sudo cp -fv wifiautoreconnect.sh /Library/Scripts/
 +sudo cp -fv net.martinsoft.wifiautoreconnect.plist /Library/LaunchAgents/
 +
-+launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
-+launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
++sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
++sudo launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
 diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist
 index 5c170e7..14dcd65 100644
 --- ./net.martinsoft.wifiautoreconnect.plist
