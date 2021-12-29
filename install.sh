@@ -7,5 +7,5 @@ sudo mkdir -p /Library/Scripts/
 sudo cp -fv wifiautoreconnect.sh /Library/Scripts/
 sudo cp -fv net.martinsoft.wifiautoreconnect.plist /Library/LaunchAgents/
 
-launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
-launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
+sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
+sudo launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
