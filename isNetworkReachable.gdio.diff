@@ -18,14 +18,19 @@ index 8101aba..0000000
 -
 diff --git a/install.sh b/install.sh
 new file mode 100755
-index 0000000..5df7a16
+index 0000000..9432d89
 --- /dev/null
 +++ ./install.sh
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,16 @@
 +#!/bin/zsh
 +SCRIPT=$(realpath "$0")
 +SCRIPTPATH=$(dirname "$SCRIPT")
 +cd "$SCRIPTPATH"
++
++if [ -f /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist  ]
++then
++    exit 0
++fi
 +
 +sudo mkdir -p /Library/Scripts/
 +sudo cp -fv wifiautoreconnect.sh /Library/Scripts/
