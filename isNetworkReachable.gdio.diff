@@ -1,6 +1,5 @@
 diff --git a/.gitignore b/.gitignore
 new file mode 100644
-index 0000000..5246977
 --- /dev/null
 +++ ./.gitignore
 @@ -0,0 +1,2 @@
@@ -8,7 +7,6 @@ index 0000000..5246977
 +wifiautoreconnect
 diff --git a/install b/install
 deleted file mode 100755
-index 8101aba..0000000
 --- ./install
 +++ /dev/null
 @@ -1,4 +0,0 @@
@@ -18,7 +16,6 @@ index 8101aba..0000000
 -
 diff --git a/install.sh b/install.sh
 new file mode 100755
-index 0000000..9432d89
 --- /dev/null
 +++ ./install.sh
 @@ -0,0 +1,16 @@
@@ -39,7 +36,6 @@ index 0000000..9432d89
 +sudo launchctl unload /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist 
 +sudo launchctl load /Library/LaunchAgents/net.martinsoft.wifiautoreconnect.plist
 diff --git a/net.martinsoft.wifiautoreconnect.plist b/net.martinsoft.wifiautoreconnect.plist
-index 5c170e7..14dcd65 100644
 --- ./net.martinsoft.wifiautoreconnect.plist
 +++ ./net.martinsoft.wifiautoreconnect.plist
 @@ -5,7 +5,7 @@
@@ -53,7 +49,6 @@ index 5c170e7..14dcd65 100644
  </dict>
 diff --git a/uninstall.sh b/uninstall.sh
 new file mode 100755
-index 0000000..801f5c4
 --- /dev/null
 +++ ./uninstall.sh
 @@ -0,0 +1,9 @@
@@ -68,7 +63,6 @@ index 0000000..801f5c4
 +sudo rm /Library/Scripts/wifiautoreconnect.sh
 diff --git a/wifiautoreconnect b/wifiautoreconnect
 deleted file mode 100755
-index 97cec41..0000000
 --- ./wifiautoreconnect
 +++ /dev/null
 @@ -1,49 +0,0 @@
@@ -123,7 +117,6 @@ index 97cec41..0000000
 -done
 diff --git a/wifiautoreconnect.sh b/wifiautoreconnect.sh
 new file mode 100755
-index 0000000..57e9529
 --- /dev/null
 +++ ./wifiautoreconnect.sh
 @@ -0,0 +1,30 @@
